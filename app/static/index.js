@@ -160,7 +160,7 @@ for (let i = 0; i < playlist_content.length; i++) {
   const collect = document.createElement("div");
   item_inner.appendChild(collect);
   collect.className = "list_item_collect";
-  collect.innerHTML = "COLLECT";
+  collect.innerHTML = "TAP LENS ON READER";
   collect_elements.push(collect);
 
   item.addEventListener("click", function handle_item_click(e) {
