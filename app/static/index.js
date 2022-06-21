@@ -161,7 +161,7 @@ for (let i = 0; i < playlist_content.length; i++) {
   const collect = document.createElement("div");
   item_inner.appendChild(collect);
   collect.className = "list_item_collect";
-  collect.innerHTML = "TAP LENS ON READER";
+  collect.innerHTML = COLLECT_TEXT;
   collect_elements.push(collect);
 
   item.addEventListener("click", function handle_item_click(e) {
@@ -319,7 +319,7 @@ function handle_tap_message(event) {
   }, 3000);
   window.setTimeout(function timeout3() {
     active_collect_element.className = "list_item_collect";
-    active_collect_element.innerHTML = "COLLECT";
+    active_collect_element.innerHTML = COLLECT_TEXT;
     is_animating_collect = false;
   }, 3500);
 }
