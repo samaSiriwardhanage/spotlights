@@ -38,6 +38,7 @@ const FRICTION = 0.9;
 const MIN_LIST_VELOCITY = 0.02;
 const MIN_TARGET_D = 0.02;
 const MIN_DRAG = 10;
+const COLLECT_TEXT = "TAP LENS ON READER"
 
 // CONTENT
 
