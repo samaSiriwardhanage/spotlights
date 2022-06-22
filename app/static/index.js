@@ -24,8 +24,8 @@ function save_label(label_id) {
     referrer: "no-referrer",
     body: JSON.stringify({
       datetime: Date.now(),
-      label_id,
-    }),
+      label_id
+    })
   });
 }
 
@@ -59,7 +59,7 @@ const playlist_content = window.playlist_labels.map(function r(x) {
       ? URL.createObjectURL(
           new Blob([x.subtitles], { type: "text/vtt; charset=UTF-8" })
         )
-      : "",
+      : ""
   };
 });
 
