@@ -24,8 +24,8 @@ function save_label(label_id) {
     referrer: "no-referrer",
     body: JSON.stringify({
       datetime: Date.now(),
-      label_id
-    })
+      label_id,
+    }),
   });
 }
 
@@ -59,7 +59,7 @@ const playlist_content = window.playlist_labels.map(function r(x) {
       ? URL.createObjectURL(
           new Blob([x.subtitles], { type: "text/vtt; charset=UTF-8" })
         )
-      : ""
+      : "",
   };
 });
 
@@ -88,6 +88,8 @@ let is_animating_collect = false;
 let video_duration = 0;
 
 let error_dialogue_close_timeout = null;
+
+window.current_list_offset = 0;
 
 // DOM
 
@@ -214,6 +216,16 @@ tap_error_element.appendChild(tap_error_text_element);
 const tap_error_close_element = document.createElement("div");
 tap_error_close_element.className = "error_dialogue_close";
 tap_error_element.appendChild(tap_error_close_element);
+
+
+
+const arrow_left_element = document.createElement("div");
+ document.body.appendChild(arrow_left_element);
+ arrow_left_element.className = "arrow_left";
+
+ const arrow_right_element = document.createElement("div");
+ document.body.appendChild(arrow_right_element);
+ arrow_right_element.className = "arrow_right";
 
 // EVENT HANDLERS
 
