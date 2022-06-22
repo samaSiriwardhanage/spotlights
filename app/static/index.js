@@ -217,15 +217,13 @@ const tap_error_close_element = document.createElement("div");
 tap_error_close_element.className = "error_dialogue_close";
 tap_error_element.appendChild(tap_error_close_element);
 
-
-
 const arrow_left_element = document.createElement("div");
- document.body.appendChild(arrow_left_element);
- arrow_left_element.className = "arrow_left";
+document.body.appendChild(arrow_left_element);
+arrow_left_element.className = "arrow_left";
 
- const arrow_right_element = document.createElement("div");
- document.body.appendChild(arrow_right_element);
- arrow_right_element.className = "arrow_right";
+const arrow_right_element = document.createElement("div");
+document.body.appendChild(arrow_right_element);
+arrow_right_element.className = "arrow_right";
 
 // EVENT HANDLERS
 
