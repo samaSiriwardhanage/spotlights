@@ -383,22 +383,22 @@ tap_source.onmessage = handle_tap_message;
 // Arrow event listeners
 arrow_right_element.addEventListener("mousedown", handle_arrow_mousedown);
 arrow_right_element.addEventListener("touchstart", handle_arrow_mousedown, {
-  passive: false,
+  passive: false
 });
 arrow_right_element.addEventListener("mousemove", handle_arrow_mousemove);
 arrow_right_element.addEventListener("touchmove", handle_arrow_mousemove, {
-  passive: false,
+  passive: false
 });
 arrow_right_element.addEventListener("mouseup", handle_arrow_mouseup);
 arrow_right_element.addEventListener("touchend", handle_arrow_mouseup);
 arrow_right_element.addEventListener("touchcancel", handle_arrow_mouseup);
 arrow_left_element.addEventListener("mousedown", handle_arrow_mousedown);
 arrow_left_element.addEventListener("touchstart", handle_arrow_mousedown, {
-  passive: false,
+  passive: false
 });
 arrow_left_element.addEventListener("mousemove", handle_arrow_mousemove);
 arrow_left_element.addEventListener("touchmove", handle_arrow_mousemove, {
-  passive: false,
+  passive: false
 });
 arrow_left_element.addEventListener("mouseup", handle_arrow_mouseup);
 arrow_left_element.addEventListener("touchend", handle_arrow_mouseup);
@@ -452,9 +452,8 @@ function main_loop() {
   })`;
 
   // UPDATE SCROLLBAR
-  scrollbar_el.style.left = `${
-    ((window.innerWidth - 60) * list_offset) / (min_list_offset || 1)
-  }px`;
+  scrollbar_el.style.left = `${((window.innerWidth - 60) * list_offset) /
+    (min_list_offset || 1)}px`;
 
   requestAnimationFrame(main_loop);
 }
