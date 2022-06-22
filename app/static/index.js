@@ -257,7 +257,7 @@ function handle_list_mouseup() {
   is_mouse_down = false;
 }
 
-function handle_video_ended() {
+function handle_next_video() {
   const next_index = (current_index + 1) % playlist_content.length;
   list_items[current_index].classList.remove("active");
   list_items[next_index].classList.add("active");
@@ -279,6 +279,34 @@ function handle_video_ended() {
 
 function handle_video_play() {
   video_duration = video.duration;
+}
+
+function handle_arrow_mousedown(e) {
+  e.preventDefault();
+  return false;
+}
+
+function handle_arrow_mousemove(e) {
+  e.preventDefault();
+  return false;
+}
+
+function handle_arrow_mouseup() {
+  if (this.className === arrow_right_element.className) {
+    window.current_list_offset -= LIST_ITEM_WIDTH;
+    if (window.current_list_offset < min_list_offset) {
+      window.current_list_offset = 0;
+    }
+    target_list_offset = window.current_list_offset;
+    is_targeting = true;
+  } else {
+    window.current_list_offset += LIST_ITEM_WIDTH;
+    if (window.current_list_offset > 0) {
+      window.current_list_offset = min_list_offset;
+    }
+    target_list_offset = window.current_list_offset;
+    is_targeting = true;
+  }
 }
 
 function close_error_dialogue() {
@@ -347,10 +375,34 @@ list_cont.addEventListener("touchend", handle_list_mouseup);
 list_cont.addEventListener("mouseleave", handle_list_mouseup);
 list_cont.addEventListener("touchcancel", handle_list_mouseup);
 window.addEventListener("resize", handle_window_resize);
-video.addEventListener("ended", handle_video_ended);
+video.addEventListener("ended", handle_next_video);
 video.addEventListener("play", handle_video_play);
 const tap_source = new EventSource("/api/tap-source");
 tap_source.onmessage = handle_tap_message;
+
+// Arrow event listeners
+arrow_right_element.addEventListener("mousedown", handle_arrow_mousedown);
+arrow_right_element.addEventListener("touchstart", handle_arrow_mousedown, {
+  passive: false,
+});
+arrow_right_element.addEventListener("mousemove", handle_arrow_mousemove);
+arrow_right_element.addEventListener("touchmove", handle_arrow_mousemove, {
+  passive: false,
+});
+arrow_right_element.addEventListener("mouseup", handle_arrow_mouseup);
+arrow_right_element.addEventListener("touchend", handle_arrow_mouseup);
+arrow_right_element.addEventListener("touchcancel", handle_arrow_mouseup);
+arrow_left_element.addEventListener("mousedown", handle_arrow_mousedown);
+arrow_left_element.addEventListener("touchstart", handle_arrow_mousedown, {
+  passive: false,
+});
+arrow_left_element.addEventListener("mousemove", handle_arrow_mousemove);
+arrow_left_element.addEventListener("touchmove", handle_arrow_mousemove, {
+  passive: false,
+});
+arrow_left_element.addEventListener("mouseup", handle_arrow_mouseup);
+arrow_left_element.addEventListener("touchend", handle_arrow_mouseup);
+arrow_left_element.addEventListener("touchcancel", handle_arrow_mouseup);
 
 // Updates everything that needs regular updating, at 60fps
 function main_loop() {
@@ -382,6 +434,7 @@ function main_loop() {
       target_list_offset =
         Math.round(list_offset / LIST_ITEM_WIDTH) * LIST_ITEM_WIDTH;
     }
+    window.current_list_offset = target_list_offset;
   }
 
   // UPDATE LIST OFFSET WHEN VIDEO CHANGES
@@ -390,6 +443,7 @@ function main_loop() {
     if (target_d > MIN_TARGET_D || target_d < -MIN_TARGET_D) {
       list_velocity = 0.1 * target_d;
     }
+    window.current_list_offset = target_list_offset;
   }
 
   // UPDATE VIDEO PROGRESS BAR
@@ -398,8 +452,9 @@ function main_loop() {
   })`;
 
   // UPDATE SCROLLBAR
-  scrollbar_el.style.left = `${((window.innerWidth - 60) * list_offset) /
-    (min_list_offset || 1)}px`;
+  scrollbar_el.style.left = `${
+    ((window.innerWidth - 60) * list_offset) / (min_list_offset || 1)
+  }px`;
 
   requestAnimationFrame(main_loop);
 }
